@@ -1,0 +1,41 @@
+﻿@model CollectionAjaxPosting.Models.Race
+<h1>Race Details</h1>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <hr />
+    <div>
+        @Html.DisplayNameFor(x => x.RaceName)
+        @Html.EditorFor(x => x.RaceName)
+        @Html.ValidationMessageFor(x => x.RaceName)
+    </div>
+    <hr />
+    <div id="horse-listing">@Html.EditorForMany(x => x.HorsesInRace)</div>
+    <button id="btn-add-horse" type="button">Add New Horse</button>
+    <input type="submit" value="Enter Horses" />
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //add button logic
+        $('#btn-add-horse').click(function () {
+            $.ajax({
+                url: '@Url.Action("AjaxMakeHorseEntry")',
+                cache: false,
+                method: 'GET',
+                success: function (html) {
+                    $('#horse-listing').append(html);
+                }
+            })
+        });
+
+        //delete-horse buttons
+        $('#horse-listing').on('click', 'button.delete-horse', function () {
+            var horseEntryToRemove = $(this).closest('div.horse');
+            horseEntryToRemove.prev('input[type=hidden]').remove();
+            horseEntryToRemove.remove();
+        });
+
+    });
+</script>

@@ -1,0 +1,16 @@
+﻿@model CollectionAjaxPosting.Models.Horse
+
+<div class="horse">
+    <div>
+        @Html.DisplayNameFor(x => x.Name)
+        @Html.EditorFor(x => x.Name)
+        @Html.ValidationMessageFor(x => x.Name)
+    </div>
+    <div>
+        @Html.DisplayNameFor(x => x.Age)
+        @Html.EditorFor(x => x.Age)
+        @Html.ValidationMessageFor(x => x.Age)
+    </div>
+    <button type="button" class="delete-horse">Remove Horse</button>
+    <hr />
+</div>
